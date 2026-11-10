@@ -1,0 +1,270 @@
+/* =========================================================
+   CARTA DE AMOR — estilos
+   ========================================================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  color: #4a2630;
+  overflow-x: hidden;
+  /* Mesa de madera: tablones + vetas + tono cálido */
+  background-color: #7a4a2b;
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.00) 0px, rgba(0,0,0,.00) 3px,
+      rgba(0,0,0,.07) 4px, rgba(0,0,0,.00) 6px,
+      rgba(255,220,170,.05) 9px, rgba(0,0,0,.00) 12px),
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,0) 0, rgba(0,0,0,0) 138px,
+      rgba(30,12,2,.65) 140px, rgba(30,12,2,.65) 142px,
+      rgba(0,0,0,0) 144px),
+    linear-gradient(180deg, #8a5733 0%, #6b3f22 25%, #805230 50%, #62381d 75%, #7e4f2d 100%);
+  background-attachment: fixed;
+}
+
+/* Textura de ruido para que parezca madera real */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.25' numOctaves='4' seed='3'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.12  0 0 0 0 0.04  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Viñeta oscura en las orillas */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(20,6,0,.5) 100%);
+}
+
+/* ---------------- FLORES ---------------- */
+#flores {
+  position: fixed; inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.flor { position: absolute; }
+.flor svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* ---------------- PÉTALOS CAYENDO ---------------- */
+#petalos {
+  position: fixed; inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+.petalo {
+  position: absolute;
+  top: -30px;
+  width: var(--w);
+  height: calc(var(--w) * 1.4);
+  border-radius: 80% 0 80% 0;
+  opacity: .85;
+  animation: caer linear infinite;
+}
+@keyframes caer {
+  0%   { transform: translate(0, -30px) rotate(0deg); }
+  50%  { transform: translate(var(--x), 55vh) rotate(200deg); }
+  100% { transform: translate(calc(var(--x) * -1), 112vh) rotate(420deg); }
+}
+
+/* ---------------- ESCENA ---------------- */
+#escena {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+  padding: 70px 24px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- CARTA ---------------- */
+.carta {
+  position: relative;
+  width: min(640px, 94vw);
+  filter: drop-shadow(0 22px 28px rgba(0,0,0,.6));
+  animation: desplegar 1.8s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes desplegar {
+  0%   { opacity: 0; transform: translateY(90px) scale(.9); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+
+/* El papel: tono rosado-dorado + bordes quemados + bordes irregulares */
+.carta .papel {
+  position: absolute; inset: 0;
+  filter: url(#quemado);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 208, 120, .45) 0, transparent 30%),
+    radial-gradient(circle at 82% 72%, rgba(255, 190, 110, .40) 0, transparent 34%),
+    radial-gradient(circle at 70% 14%, rgba(255, 170, 190, .45) 0, transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(255, 160, 185, .40) 0, transparent 30%),
+    linear-gradient(160deg, #fdebe2 0%, #f9dccb 45%, #f3cfae 100%);
+  box-shadow:
+    inset 0 0 8px 3px rgba(15, 5, 0, .95),
+    inset 0 0 28px 12px rgba(70, 25, 0, .85),
+    inset 0 0 60px 26px rgba(150, 65, 10, .55),
+    inset 0 0 110px 40px rgba(205, 125, 45, .30);
+}
+
+.contenido {
+  position: relative;
+  padding: 92px 82px 80px;
+  font-size: 19px;
+  line-height: 1.95;
+  color: #4a2630;
+}
+.contenido p {
+  margin-bottom: 22px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Marco dorado doble, elegante */
+.contenido::before {
+  content: "";
+  position: absolute; inset: 52px;
+  border: 1px solid rgba(176, 126, 38, .85);
+  outline: 1px solid rgba(176, 126, 38, .45);
+  outline-offset: 5px;
+  pointer-events: none;
+}
+
+.saludo {
+  font-size: 38px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.3;
+  text-align: left !important;
+  margin-bottom: 30px !important;
+  position: relative;
+  padding-bottom: 14px;
+  /* dorado con brillo que se desliza */
+  background: linear-gradient(100deg, #8a5a14 0%, #c99a2e 30%, #f3d27a 50%, #c99a2e 70%, #8a5a14 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: brillo 5s ease-in-out infinite;
+}
+.saludo::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 150px; height: 1.5px;
+  background: linear-gradient(90deg, #b8862c, rgba(184,134,44,0));
+}
+@keyframes brillo {
+  0%, 100% { background-position: 0% 0; }
+  50%      { background-position: 100% 0; }
+}
+
+.final {
+  font-size: 25px;
+  line-height: 1.6;
+  font-weight: 700;
+  font-style: italic;
+  color: #9a1f4a;
+  text-align: center !important;
+  margin-top: 14px;
+}
+.corazon {
+  text-align: center !important;
+  font-size: 32px;
+  color: #c2386a;
+  margin-bottom: 0 !important;
+  animation: latido 1.6s ease-in-out infinite;
+}
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+
+/* Aparición suave de cada párrafo */
+.contenido > p { opacity: 0; animation: texto 1.2s ease forwards; }
+.contenido > :nth-child(1) { animation-delay: .9s; }
+.contenido > :nth-child(2) { animation-delay: 1.9s; }
+.contenido > :nth-child(3) { animation-delay: 3.3s; }
+.contenido > :nth-child(4) { animation-delay: 4.6s; }
+.contenido > :nth-child(5) { animation-delay: 5.4s; }
+@keyframes texto {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------- FOTO ---------------- */
+.foto {
+  position: relative;
+  width: min(250px, 70vw);
+  padding: 12px 12px 44px;
+  background: #fbf6ec;
+  transform: rotate(4deg);
+  box-shadow: 0 16px 30px rgba(0,0,0,.6);
+  animation: foto-entra 1.6s ease 1.2s both;
+}
+@keyframes foto-entra {
+  from { opacity: 0; transform: translateY(50px) rotate(10deg); }
+  to   { opacity: 1; transform: rotate(4deg); }
+}
+.foto img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: sepia(.18) contrast(1.03);
+}
+.foto .cinta {
+  position: absolute;
+  top: -16px; left: 50%;
+  width: 96px; height: 30px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: rgba(255, 214, 224, .75);
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+
+/* ---------------- BOTÓN MÚSICA ---------------- */
+#musica-btn {
+  position: fixed;
+  right: 18px; bottom: 18px;
+  z-index: 30;
+  width: 52px; height: 52px;
+  border: none; border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+  background: #e0527c;
+  box-shadow: 0 6px 16px rgba(0,0,0,.5);
+  transition: transform .2s;
+}
+#musica-btn:hover { transform: scale(1.1); }
+#musica-btn.pausa { background: #8d6e63; text-decoration: line-through; }
+
+/* ---------------- CELULAR ---------------- */
+@media (max-width: 600px) {
+  #escena { padding: 40px 10px 60px; gap: 30px; }
+  .carta .papel {
+    box-shadow:
+      inset 0 0 6px 2px rgba(15, 5, 0, .95),
+      inset 0 0 18px 8px rgba(70, 25, 0, .85),
+      inset 0 0 38px 16px rgba(150, 65, 10, .5),
+      inset 0 0 70px 24px rgba(205, 125, 45, .28);
+  }
+  .contenido { padding: 64px 46px 56px; font-size: 16px; line-height: 1.85; }
+  .contenido::before { inset: 32px; outline-offset: 4px; }
+  .saludo { font-size: 30px; }
+  .final { font-size: 21px; }
+}
