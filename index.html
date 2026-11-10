@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Avril</title>
-    <!-- Fuentes de Google para el estilo caligráfico y de carta -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
@@ -12,37 +11,72 @@
 </head>
 <body>
 
-    <!-- Contenedor principal con fondo floral -->
+    <!-- Audio de fondo (coloca musica.mp3 en la carpeta imagenes) -->
+    <audio id="musica-fondo" loop preload="auto">
+        <source src="imagenes/musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Pantalla de entrada para activar la música con un toque -->
+    <div id="pantalla-sobre" class="pantalla-sobre">
+        <div class="tarjeta-apertura">
+            <span class="ornamento-sup">❦</span>
+            <p class="texto-apertura">Una carta para</p>
+            <h2 class="nombre-apertura">Avril</h2>
+            <button id="btn-abrir" class="sello-lacre">
+                <span>Abrir</span>
+            </button>
+            <span class="nota-sonido">♪ Incluye música de fondo</span>
+        </div>
+    </div>
+
+    <!-- Botón flotante arriba a la derecha para pausar/reproducir música -->
+    <button id="btn-musica" class="btn-musica-top" title="Música">
+        <span id="icono-musica">♫</span>
+    </button>
+
+    <!-- Contenedor principal con fondo blanco/crema y flores rosadas -->
     <main class="escena-fondo">
         
-        <!-- Hoja de carta tipo pergamino -->
+        <!-- Hoja de carta estilo victoriano -->
         <article class="hoja-pergamino">
-            
-            <header class="encabezado-carta">
-                <span class="subtitulo-fecha">Desde mi corazón</span>
-                <h1 class="titulo-nombre">Avril,</h1>
-            </header>
+            <!-- Marco interior victoriano -->
+            <div class="borde-victoriano">
+                
+                <div class="ornamento-esquina esq-sup-izq">❧</div>
+                <div class="ornamento-esquina esq-sup-der">❧</div>
 
-            <section class="cuerpo-carta">
-                <p class="parrafo-capitular">
-                    <span class="letra-q">Q</span>uerida Avrilita, esta vez, no vengo con poemas en mano, vengo a hablarte desde mi corazón, vengo a confesarte lo mucho que te extraño, no solo hoy, sino desde hace mucho, extraño abrazarte, extraño estar cerca de ti, extraño estar junto a ti.
-                </p>
-                <p>
-                    Hemos pasado por muchas cosas juntos, Avril, buenas y malas, pero al final mi corazón siempre se queda con lo bonito y con lo hermoso que fue coincidir contigo, no vengo a llenarte de mil promesas, vengo a decirte que, si en algún momento piensas en lo nuestro, sean mis actos los que te demuestren cada día cuánto puedo cuidar de ti y proteger tu corazón. Te amaré, Avrilita, mi niña, ahora y para siempre.
-                </p>
-            </section>
+                <header class="encabezado-carta">
+                    <span class="subtitulo-fecha">Desde mi corazón</span>
+                    <h1 class="titulo-nombre">Avril,</h1>
+                </header>
 
-            <!-- Marco Polaroid con cinta rosa -->
-            <div class="contenedor-polaroid">
-                <div class="cinta-adhesiva"></div>
-                <div class="marco-polaroid">
-                    <img src="imagenes/snoopy.jpg" alt="Para Avril" onerror="this.src='https://placehold.co/320x320/ffffff/b83b5e?text=Pon+snoopy.jpg+en+/imagenes'">
+                <section class="cuerpo-carta">
+                    <p class="parrafo-capitular">
+                        <span class="letra-q">Q</span>uerida Avrilita, esta vez, no vengo con poemas en mano, vengo a hablarte desde mi corazón, vengo a confesarte lo mucho que te extraño, no solo hoy, sino desde hace mucho, extraño abrazarte, extraño estar cerca de ti, extraño estar junto a ti.
+                    </p>
+                    <p>
+                        Hemos pasado por muchas cosas juntos, Avril, buenas y malas, pero al final mi corazón siempre se queda con lo bonito y con lo hermoso que fue coincidir contigo, no vengo a llenarte de mil promesas, vengo a decirte que, si en algún momento piensas en lo nuestro, sean mis actos los que te demuestren cada día cuánto puedo cuidar de ti y proteger tu corazón. Te amaré, Avrilita, mi niña, ahora y para siempre.
+                    </p>
+                </section>
+
+                <!-- Divisor victoriano sutil -->
+                <div class="divisor-victoriano"><span>✧ ❁ ✧</span></div>
+
+                <!-- Marco Polaroid con cinta rosa -->
+                <div class="contenedor-polaroid">
+                    <div class="cinta-adhesiva"></div>
+                    <div class="marco-polaroid">
+                        <img src="imagenes/snoopy.jpg" alt="Para Avril" onerror="this.src='https://placehold.co/320x320/ffffff/b83b5e?text=Pon+snoopy.jpg+en+/imagenes'">
+                    </div>
                 </div>
-            </div>
 
+                <div class="ornamento-esquina esq-inf-izq">❧</div>
+                <div class="ornamento-esquina esq-inf-der">❧</div>
+
+            </div>
         </article>
 
-        <!-- Barra flotante inferior idéntica al diseño -->
+        <!-- Barra flotante inferior -->
         <nav class="barra-navegacion">
             <button class="btn-icono" title="Anterior">←</button>
             <button class="btn-icono" title="Secciones">⊞</button>
@@ -56,6 +90,38 @@
         </nav>
 
     </main>
+
+    <!-- Script para controlar la apertura y la música -->
+    <script>
+        const pantallaSobre = document.getElementById('pantalla-sobre');
+        const btnAbrir = document.getElementById('btn-abrir');
+        const musica = document.getElementById('musica-fondo');
+        const btnMusica = document.getElementById('btn-musica');
+        const iconoMusica = document.getElementById('icono-musica');
+
+        musica.volume = 0.5; // Volumen suave al 50%
+
+        btnAbrir.addEventListener('click', () => {
+            pantallaSobre.classList.add('oculto');
+            musica.play().then(() => {
+                btnMusica.classList.add('sonando');
+            }).catch(err => {
+                console.log("Agrega musica.mp3 en la carpeta imagenes:", err);
+            });
+        });
+
+        btnMusica.addEventListener('click', () => {
+            if (musica.paused) {
+                musica.play();
+                btnMusica.classList.add('sonando');
+                iconoMusica.textContent = '♫';
+            } else {
+                musica.pause();
+                btnMusica.classList.remove('sonando');
+                iconoMusica.textContent = '🔇';
+            }
+        });
+    </script>
 
 </body>
 </html>
